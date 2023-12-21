@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Collections.Tests\**" />
+    <EmbeddedResource Remove="Collections.Tests\**" />
+    <None Remove="Collections.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="NUnit" Version="3.13.3" />
   </ItemGroup>
 
