@@ -1,7 +1,7 @@
-﻿using LeetCode.Models;
+﻿using Exercises.Models;
 using System.Collections;
 
-namespace LeetCode.Collections
+namespace Exercises.Collections
 {
     internal class QueueCollection<T> : IEnumerable<T>
     {

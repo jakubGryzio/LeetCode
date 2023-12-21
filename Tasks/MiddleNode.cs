@@ -1,11 +1,11 @@
-﻿using LeetCode.Models;
+﻿using Exercises.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LeetCode
+namespace Exercises
 {
     internal class MiddleNode<T>
     {

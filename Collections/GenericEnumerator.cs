@@ -1,7 +1,7 @@
 ﻿using System.Collections;
-using LeetCode.Models;
+using Exercises.Models;
 
-namespace LeetCode.Collections
+namespace Exercises.Collections
 {
     internal class GenericEnumerator<T> : IEnumerator<T>
     {
