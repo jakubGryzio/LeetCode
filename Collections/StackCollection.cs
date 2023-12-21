@@ -16,9 +16,8 @@ namespace Exercises.Collections
         public void Push(T value)
         {
             ListNode<T> oldhead = this.head;
-            this.head = new ListNode<T>();
+            this.head = new ListNode<T>(value);
             this.head.next = oldhead;
-            this.head.value = value;
             this.length++;
         }
 

@@ -12,8 +12,7 @@ namespace Exercises.Collections
         public void Enqueue(T value)
         {
             var previousLast = this.last;
-            this.last = new ListNode<T>();
-            this.last.value = value;
+            this.last = new ListNode<T>(value);
 
             if (this.first == null) 
             {
