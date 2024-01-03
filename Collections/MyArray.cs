@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Numerics;
+﻿using System.Linq.Expressions;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Exercises.Collections
 {
@@ -91,6 +87,177 @@ namespace Exercises.Collections
             }
 
             return output.ToArray();
+        }
+
+        public static IList<int> SpiralOrder(int[][] matrix)
+        {
+            var output = new List<int>();
+            int m = matrix.Length;
+            int n = matrix[0].Length;
+            int i = 0;
+
+            while (output.Count != m * n)
+            {
+                //first row
+                for (int j = 0 + i; j < n - i; j++)
+                {
+                    if (output.Count == m * n) return output;
+                    output.Add(matrix[i][j]);
+                }
+
+                // last column
+                for (int j = 1 + i; j < m - i; j++)
+                {
+                    if (output.Count == m * n) return output;
+                    output.Add(matrix[j][n - i - 1]);
+                }
+
+                // last row
+                for (int j = n - i - 2; j >= i; j--)
+                {
+                    if (output.Count == m * n) return output;
+                    output.Add(matrix[m - i - 1][j]);
+                }
+
+                // first column
+                for (int j = m - i - 2; j > i; j--)
+                {
+                    if (output.Count == m * n) return output;
+                    output.Add(matrix[j][i]);
+                }
+
+                i++;
+            }
+            return output;
+        }
+
+        public static IList<IList<int>> Generate(int numRows)
+        {
+            var output = new List<IList<int>>();
+
+            for (int i = 0; i < numRows; i++)
+            {
+                var newSumArray = new List<int> { 1 };
+                for (int j = 1; j < i; j++)
+                {
+                    newSumArray.Add(output[output.Count - 1][j - 1] + output[output.Count - 1][j]);
+                }
+                if (i > 0)
+                {
+                    newSumArray.Add(1);
+                }
+                output.Add(newSumArray);
+            }
+            
+            return output;
+        }
+
+        public static string AddBinary(string a, string b)
+        {
+            StringBuilder output = new StringBuilder();
+
+            if (a.Length > b.Length)
+            {
+                b = b.PadLeft(a.Length, '0');
+            } 
+            else
+            {
+                a = a.PadLeft(b.Length, '0');
+            }
+
+            byte carry = 0;
+            for (int i = Math.Max(a.Length, b.Length) - 1; i >= 0; i--)
+            {
+                byte value = (byte)(Convert.ToByte(a[i]) + Convert.ToByte(b[i]) - 48 * 2 + carry);
+                byte bitValue = (byte)(value % 2);
+                carry = (byte)(value > 1 ? 1 : 0);
+                output.Insert(0, bitValue);
+            }
+
+            if (carry != 0)
+            {
+                output.Insert(0, carry);
+            }
+
+            return output.ToString();
+        }
+
+        public static int StrStr(string haystack, string needle)
+        {
+            if (!haystack.Contains(needle[0]) || haystack.Length < needle.Length)
+            {
+                return -1;
+            }
+
+            var firstLetterIdx = -1;
+            for (int i = 0; i < haystack.Length; i++)
+            {
+                firstLetterIdx = haystack.IndexOf(needle[0], firstLetterIdx + 1);
+                if (firstLetterIdx == -1 || firstLetterIdx + needle.Length > haystack.Length)
+                {
+                    return -1;
+                }
+                var subStr = haystack.Substring(firstLetterIdx, needle.Length);
+                if (subStr.Equals(needle))
+                {
+                    return firstLetterIdx;
+                }
+            }
+            return -1;
+        }
+
+        public static string LongestCommonPrefix(string[] strs)
+        {
+            var minLenStr = strs[0];
+            foreach (var elem in strs.Skip(1))
+            {
+                if (elem.Length < minLenStr.Length)
+                {
+                    minLenStr = elem;
+                }
+            }
+
+            for (int i = 0; i < minLenStr.Length; i++)
+            {
+                var findStr = new string(minLenStr.SkipLast(i).ToArray());
+                var findStrInAll = strs.FirstOrDefault(s => !s.StartsWith(findStr));
+                if (findStrInAll == null)
+                {
+                    return findStr;
+                }
+            }
+            return "";
+        }
+
+        public static void ReverseString(char[] s)
+        {
+            /*int i = 0;
+            int j = s.Length - 1;
+            while (i < j)
+            {
+                var temp = s[i];
+                s[i] = s[j];
+                s[j] = temp;
+                i++;
+                j--;
+            }*/
+
+            for (int i = 0; i < s.Length/2; i++)
+            {
+                (s[s.Length - 1 - i], s[i]) = (s[i], s[s.Length - 1 - i]);
+            }
+        }
+
+        public static int ArrayPairSum(int[] nums)
+        {
+            nums = nums.OrderBy(i => i).ToArray();
+            int maxSum = 0;
+            for (int i = 0; i < nums.Length; i+=2)
+            {
+                maxSum += nums[i];
+            }
+
+            return maxSum;
         }
     }
 }
