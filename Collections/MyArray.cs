@@ -231,17 +231,6 @@ namespace Exercises.Collections
 
         public static void ReverseString(char[] s)
         {
-            /*int i = 0;
-            int j = s.Length - 1;
-            while (i < j)
-            {
-                var temp = s[i];
-                s[i] = s[j];
-                s[j] = temp;
-                i++;
-                j--;
-            }*/
-
             for (int i = 0; i < s.Length/2; i++)
             {
                 (s[s.Length - 1 - i], s[i]) = (s[i], s[s.Length - 1 - i]);
@@ -258,6 +247,41 @@ namespace Exercises.Collections
             }
 
             return maxSum;
+        }
+
+        public static int RemoveElement(int[] nums, int val)
+        {
+            int k = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] != val)
+                {
+                    nums[k] = nums[i];
+                    k++;
+                }
+            }
+
+            return k;
+        }
+
+        public static int FindMaxConsecutiveOnes(int[] nums)
+        {
+            int winner = 0;
+            int current = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] != 1)
+                {
+                    current = 0;
+                }
+                else
+                {
+                    current++;
+                    winner = Math.Max(winner, current);
+                }
+            }
+
+            return winner;
         }
     }
 }
