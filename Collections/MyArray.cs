@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Exercises.Collections
 {
@@ -148,13 +149,14 @@ namespace Exercises.Collections
                 }
                 output.Add(newSumArray);
             }
-            
+
             return output;
         }
 
         public static string AddBinary(string a, string b)
         {
             StringBuilder output = new StringBuilder();
+            
 
             if (a.Length > b.Length)
             {
@@ -282,6 +284,138 @@ namespace Exercises.Collections
             }
 
             return winner;
+        }
+
+        public static int MinSubArrayLen(int target, int[] nums)
+        {
+            int left = 0, right = 0, sum = 0, min = 1000000000;
+            while (right < nums.Length)
+            {
+                if ((nums[right] + sum) < target)
+                {
+                    sum += nums[right++];
+                }
+                else
+                {
+                    min = Math.Min(min, Math.Abs(right - left + 1));
+                    sum -= nums[left++];
+                }
+            }
+
+            if (min == 1000000000)
+            {
+                return 0;
+            }
+
+            return min;
+        }
+
+        public static void Rotate(int[] nums, int k)
+        {
+
+            void reverse(int start, int end)
+            {
+                while (start < end)
+                {
+                    (nums[start], nums[end]) = (nums[end], nums[start]);
+                    start++;
+                    end--;
+                }
+            }
+            /*if (k == 0 || nums.Length == 1 || nums.Length == k)
+            {
+                return;
+            }
+
+            var swap = nums[0];
+            var swapPosition = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                swapPosition += (k % nums.Length);
+                if (swapPosition > nums.Length - 1)
+                {
+                    swapPosition -= nums.Length;
+                }
+                (swap, nums[swapPosition]) = (nums[swapPosition], swap);
+                if (swapPosition == 0)
+                {
+                    swapPosition++;
+                    swap = nums[swapPosition];
+                }
+            }*/
+            k %= nums.Length;
+            reverse(0, nums.Length - k - 1);
+            reverse(nums.Length - k, nums.Length - 1);
+            reverse(0, nums.Length - 1);
+        }
+
+        public static string ReverseWords(string s)
+        {
+            // Solution without split string
+            StringBuilder sb = new StringBuilder();
+            StringBuilder curentWord = new StringBuilder();
+            var current = 0;
+            while (current < s.Length)
+            {
+                while (current < s.Length && s[current] != ' ')
+                {
+                    curentWord.Append(s[current]);
+                    current++;
+                }
+
+                var currentWordAsString = curentWord.ToString();
+                if (!string.IsNullOrEmpty(currentWordAsString))
+                {
+                    sb.Insert(0, ' ' + currentWordAsString);
+                }
+                current++;
+                curentWord.Clear();
+            }
+            return sb.ToString().TrimStart();
+        }
+
+        public static string ReverseWordsII(string s)
+        {
+            string[] words = Regex.Split(s, @"\s+");
+            StringBuilder currentWord = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
+            foreach (var word in words)
+            {
+                for (int i = word.Length - 1; i >= 0; i--)
+                {
+                    currentWord.Append(word[i]);
+                }
+                sb.Append(currentWord.ToString() + ' ');
+                currentWord.Clear();
+            }
+            return sb.ToString().TrimEnd();
+        }
+
+        public static int RemoveDuplicates(int[] nums)
+        {
+            int k = 1;
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (nums[i] != nums[i - 1])
+                {
+                    nums[k] = nums[i];
+                    k++;
+                }
+            }
+            return k;
+        }
+
+        public static void MoveZeroes(int[] nums)
+        {
+            int k = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] != 0)
+                {
+                    (nums[k],nums[i]) = (nums[i], nums[k]);
+                    k++;
+                }
+            }
         }
     }
 }
