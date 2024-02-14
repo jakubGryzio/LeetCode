@@ -210,5 +210,45 @@ namespace Exercises.Collections
             TreeNode.GetNode(root);
             return null;
         }
+
+        public static int NumJewelsInStones(string jewels, string stones)
+        {
+            int counter = 0;
+            char[] ascii = new char[58];
+            foreach (char c in jewels)
+            {
+                ascii[c - 65]++;
+            }
+
+            foreach (char c in stones)
+            {
+                counter += ascii[c - 65];
+            }
+
+            return counter;
+        }
+
+        public static int LengthOfLongestSubstring(string s)
+        {
+            int winner = 0;
+            var current = 0;
+            var hashSet = new HashSet<char>();
+            foreach (char c in s)
+            {
+                current++;
+                if (hashSet.Contains(c))
+                {
+                    hashSet.Remove(c);
+                    current--;
+                }
+                else
+                {
+                    winner = Math.Max(winner, current);
+                }
+                hashSet.Add(c);
+            }
+
+            return winner;
+        }
     }
 }

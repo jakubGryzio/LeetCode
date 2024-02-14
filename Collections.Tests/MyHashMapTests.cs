@@ -166,5 +166,53 @@ namespace Collections.Tests
             var root = new TreeNode(1, left, right);
             MyHashMap.FindDuplicateSubtrees(root);
         }
+
+        [Test]
+        public void Num_Jewels_Find_2()
+        {
+            var output = MyHashMap.NumJewelsInStones("aA", "aAAbbbb");
+            var expected = 3;
+            Assert.That(output, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Num_Jewels_Find_0()
+        {
+            var output = MyHashMap.NumJewelsInStones("z", "Z");
+            var expected = 0;
+            Assert.That(output, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Longest_Substring_3()
+        {
+            var exptected = 3;
+            var output = MyHashMap.LengthOfLongestSubstring("abcabcbb");
+            Assert.That(output, Is.EqualTo(exptected));
+        }
+
+        [Test]
+        public void Longest_Substring_1()
+        {
+            var exptected = 1;
+            var output = MyHashMap.LengthOfLongestSubstring("bbbbb");
+            Assert.That(output, Is.EqualTo(exptected));
+        }
+
+        [Test]
+        public void Longest_Substring_3_With_Subsequence()
+        {
+            var exptected = 3;
+            var output = MyHashMap.LengthOfLongestSubstring("pwwkew");
+            Assert.That(output, Is.EqualTo(exptected));
+        }
+
+        [Test]
+        public void Longest_Substring_3_Again()
+        {
+            var exptected = 3;
+            var output = MyHashMap.LengthOfLongestSubstring("dvdf");
+            Assert.That(output, Is.EqualTo(exptected));
+        }
     }
 }
